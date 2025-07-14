@@ -1,0 +1,449 @@
+import { useState } from "react";
+import { Link, animateScroll as scroll } from "react-scroll";
+
+// -----------------------------
+// CONFIGURABLE DATA —— tweak as needed
+// -----------------------------
+const NAV_ITEMS = [
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
+
+const EDUCATION = [
+  {
+    school: "Visvesvaraya National Institute of Technology",
+    degree: "B.Tech – Electrical & Electronics Engineering",
+    year: "2021",
+  },
+  {
+    school: "University of Illinois Urbana‑Champaign",
+    degree: "M.S. – Business Analytics (IT Concentration)",
+    year: "2024",
+  },
+];
+
+const EXPERIENCE = [
+  {
+    title: "Data Analyst",
+    company: "Holiday World",
+    dates: "Jul 2024 – Present",
+    headline: "Lifted organic traffic & ad revenue +35% with GA + AdTech",
+    bullets: [
+      "Boosted organic traffic & ad revenue 35% through GA + SEO",
+      "Doubled weekly sign‑ups via GTM tracking improvements",
+      "Built Tableau ad‑sales dashboard to monitor fill‑rate KPIs",
+    ],
+  },
+  {
+    title: "BI Analyst",
+    company: "Exelon Corp.",
+    dates: "Sep 2023 – May 2024",
+    headline: "Saved $800 K by real‑time supply‑chain dashboards",
+    bullets: [
+      "Built Python + Tableau SC dashboards that saved $800 K",
+      "Analyzed high‑volume sensor data to cut bottlenecks",
+    ],
+  },
+  {
+    title: "Business Tech Analyst",
+    company: "Deloitte",
+    dates: "Jul 2021 – Jul 2023",
+    headline: "Modernised legacy claims system to microservices, 1 M+ tx/day",
+    bullets: [
+      "Migrated COBOL → cloud microservices supporting 1 M+ daily claims",
+      "Engineered IBM ODM rules for 20 M+ policies",
+      "Cut query response time 40% via SQL & caching optimisation",
+    ],
+  },
+];
+
+const PROJECTS = [
+  {
+    name: "Modular Data Pipeline Generator",
+    url: "https://github.com/nikhilsatti/preprocessing_service",
+    img: "placeholder-project.png", // replace with 800×800 thumbnail
+  },
+  {
+    name: "Customer Segmentation & Insights",
+    url: "https://github.com/NikhilReddySatti/Customer-Segmentation-for-Targeted-Marketing-Insights",
+    img: "placeholder-project.png",
+  },
+  {
+    name: "Property Valuation Models",
+    url: "https://github.com/NikhilReddySatti/Statistical-Modeling-for-Property-Valuation",
+    img: "placeholder-project.png",
+  },
+];
+
+const SKILLS = [
+  { name: "Python", level: 90 },
+  { name: "SQL", level: 88 },
+  { name: "Tableau", level: 85 },
+  { name: "Looker / Power BI", level: 82 },
+  { name: "Pandas", level: 90 },
+  { name: "scikit‑learn", level: 85 },
+  { name: "AWS", level: 83 },
+  { name: "CI/CD", level: 80 },
+  { name: "Snowflake", level: 80 },
+  { name: "PySpark", level: 82 },
+  { name: "Django", level: 81 },
+  { name: "Java", level: 80 },
+  { name: "Hive/Hadoop", level: 80 },
+];
+
+const WORD_CLOUD = [
+  "CrewAI",
+  "LangChain",
+  "Firebase",
+  "IBM ODM",
+  "PCF",
+  "A/B Testing",
+  "Figma",
+  "GA4",
+  "GTM",
+  "AdSense",
+  "Seaborn",
+  "JIRA",
+];
+
+const SIDEBAR_LINKS = [
+  {
+    label: "Email",
+    url: "mailto:nikhil.satti05@gmail.com",
+    icon: "📧",
+  },
+  {
+    label: "LinkedIn",
+    url: "https://linkedin.com/in/nikhilreddysatti",
+    icon: "🔗",
+  },
+  {
+    label: "GitHub",
+    url: "https://github.com/NikhilReddySatti",
+    icon: "🐙",
+  },
+  {
+    label: "Portfolio",
+    url: "https://nikhilreddysatti.github.io/Data-Analyst-Portfolio/",
+    icon: "🌐",
+  },
+];
+
+// -----------------------------
+// COMPONENTS
+// -----------------------------
+const Header = () => (
+  <header className="fixed top-0 left-0 w-full bg-opacity-80 backdrop-blur-md bg-gray-900 z-50">
+    <nav className="max-w-6xl mx-auto flex items-center justify-between p-4 text-sm text-gray-200">
+      <button
+        className="font-semibold text-lg tracking-wide"
+        onClick={() => scroll.scrollToTop({ duration: 500 })}
+      >
+        Nikhil Reddy Satti
+      </button>
+      <ul className="space-x-6 hidden sm:flex">
+        {NAV_ITEMS.map(({ id, label }) => (
+          <li key={id} className="cursor-pointer hover:text-blue-400">
+            <Link
+              to={id}
+              smooth
+              duration={600}
+              offset={-80}
+              spy
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </header>
+);
+
+const Landing = () => (
+  <section id="about" className="min-h-screen flex flex-col justify-center items-center text-center relative">
+    {/* Orbiting SVG icons */}
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="animate-spin-slow w-72 h-72 border-t-2 border-blue-500 rounded-full opacity-10" />
+    </div>
+
+    <div className="z-10 max-w-3xl px-4">
+      <img
+        src="placeholder-headshot.jpg"
+        alt="Profile"
+        className="w-40 h-40 rounded-full mx-auto mb-6 object-cover shadow-lg"
+      />
+      <h1 className="text-4xl font-bold text-blue-400 mb-4">Nikhil Reddy Satti</h1>
+      <p className="text-gray-300 text-lg leading-relaxed">
+        Data analyst who turns messy data into crisp, actionable insights. 4&nbsp;years wrangling SQL, Python &amp; Looker. Loves clean design and great coffee.
+      </p>
+    </div>
+  </section>
+);
+
+const Education = () => (
+  <section id="education" className="py-24 bg-gray-900">
+    <div className="max-w-4xl mx-auto px-4">
+      <h2 className="text-3xl font-semibold text-blue-400 mb-12">Education</h2>
+      <ol className="relative border-l border-gray-700 pl-6 space-y-8">
+        {EDUCATION.map((edu, idx) => (
+          <li key={idx} className="ml-4">
+            <span className="absolute -left-1.5 top-2.5 w-3 h-3 bg-blue-500 rounded-full" />
+            <time className="text-sm text-gray-400">{edu.year}</time>
+            <h3 className="text-lg font-medium text-gray-200 mt-1">{edu.degree}</h3>
+            <p className="text-gray-400">{edu.school}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+);
+
+const ExperienceItem = ({ exp }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mb-8">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full text-left p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition flex justify-between items-center"
+      >
+        <div>
+          <h3 className="text-lg font-semibold text-gray-200">
+            {exp.title} – {exp.company}
+          </h3>
+          <span className="text-sm text-gray-400">{exp.dates}</span>
+        </div>
+        <span className="text-blue-400 text-sm hidden sm:inline">{exp.headline}</span>
+      </button>
+      {open && (
+        <ul className="pl-6 mt-3 space-y-2 list-disc text-gray-300">
+          {exp.bullets.map((b, i) => (
+            <li key={i}>{b}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const Experience = () => (
+  <section id="experience" className="py-24 bg-gray-950">
+    <div className="max-w-4xl mx-auto px-4">
+      <h2 className="text-3xl font-semibold text-blue-400 mb-12">Experience</h2>
+      {EXPERIENCE.map((exp, idx) => (
+        <ExperienceItem key={idx} exp={exp} />
+      ))}
+    </div>
+  </section>
+);
+
+const Projects = () => (
+  <section id="projects" className="py-24 bg-gray-900">
+    <div className="max-w-6xl mx-auto px-4">
+      <h2 className="text-3xl font-semibold text-blue-400 mb-12">Projects</h2>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {PROJECTS.map((p, idx) => (
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            key={idx}
+            className="group block bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-blue-600/40 transition"
+          >
+            <img src={p.img} alt="project" className="h-40 w-full object-cover" />
+            <div className="p-4">
+              <h3 className="text-gray-200 font-medium group-hover:text-blue-400 transition">
+                {p.name}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const SkillBar = ({ skill }) => (
+  <div className="mb-4">
+    <div className="flex justify-between mb-1">
+      <span className="text-gray-200 text-sm font-medium">{skill.name}</span>
+      <span className="text-gray-400 text-xs">{skill.level}%</span>
+    </div>
+    <div className="w-full bg-gray-700 rounded h-2">
+      <div
+        className="bg-blue-500 h-2 rounded"
+        style={{ width: `${skill.level}%` }}
+      />
+    </div>
+  </div>
+);
+
+const Skills = () => (
+  <section id="skills" className="py-24 bg-gray-950">
+    <div className="max-w-6xl mx-auto px-4">
+      <h2 className="text-3xl font-semibold text-blue-400 mb-12">Skills & Expertise</h2>
+      <div className="grid md:grid-cols-2 gap-8">
+        <div>
+          {SKILLS.map((s, idx) => (
+            <SkillBar key={idx} skill={s} />
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-6 md:mt-0">
+          {WORD_CLOUD.map((word, idx) => (
+            <span
+              key={idx}
+              className="select-none text-gray-400 hover:text-blue-400 transition"
+              style={{
+                fontSize: `${12 + (idx % 5) * 4}px`,
+                transform: `rotate(${(idx % 7) * 3 - 9}deg)`
+              }}
+            >
+              {word}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const Contact = () => {
+  const [state, setState] = useState({ status: "idle" });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setState({ status: "loading" });
+
+    const formData = new FormData(e.target);
+
+    // Replace "YOUR_FORMSPREE_ENDPOINT" after creating the form
+    const res = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (res.ok) {
+      setState({ status: "success" });
+      e.target.reset();
+      setTimeout(() => setState({ status: "idle" }), 2500);
+    } else {
+      setState({ status: "error" });
+    }
+  };
+
+  return (
+    <section id="contact" className="py-24 bg-gray-900">
+      <div className="max-w-4xl mx-auto px-4">
+        <h2 className="text-3xl font-semibold text-blue-400 mb-12">Contact Me</h2>
+        <form onSubmit={handleSubmit} className="grid gap-6">
+          <input
+            className="bg-gray-800 text-gray-200 p-3 rounded border border-gray-700 focus:border-blue-500 focus:outline-none"
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+          />
+          <input
+            className="bg-gray-800 text-gray-200 p-3 rounded border border-gray-700 focus:border-blue-500 focus:outline-none"
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          />
+          <input
+            className="bg-gray-800 text-gray-200 p-3 rounded border border-gray-700 focus:border-blue-500 focus:outline-none"
+            type="text"
+            name="subject"
+            placeholder="Subject"
+          />
+          <textarea
+            className="bg-gray-800 text-gray-200 p-3 rounded border border-gray-700 focus:border-blue-500 focus:outline-none"
+            name="message"
+            rows="5"
+            placeholder="Your Message"
+            required
+          />
+          <button
+            type="submit"
+            disabled={state.status === "loading"}
+            className="relative inline-flex items-center justify-center px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition disabled:opacity-50"
+          >
+            {state.status === "loading" && (
+              <svg
+                className="animate-spin h-5 w-5 mr-2 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 11-8 8h4l-3 3 3 3h-4A8 8 0 014 12z"
+                />
+              </svg>
+            )}
+            {state.status === "success" ? "Submitted!" : "Send"}
+          </button>
+          {state.status === "error" && (
+            <p className="text-red-400 text-sm">Oops! Something went wrong.</p>
+          )}
+        </form>
+      </div>
+    </section>
+  );
+};
+
+const Sidebar = () => (
+  <aside className="fixed right-4 bottom-4 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl p-4 space-y-2 hidden md:block">
+    {SIDEBAR_LINKS.map((link, idx) => (
+      <a
+        key={idx}
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center space-x-2 text-gray-300 hover:text-blue-400"
+      >
+        <span>{link.icon}</span>
+        <span>{link.label}</span>
+      </a>
+    ))}
+  </aside>
+);
+
+export default function Portfolio() {
+  return (
+    <div className="font-sans bg-gray-950 text-gray-300">
+      <Header />
+      <main>
+        <Landing />
+        <Education />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
+      </main>
+      <Sidebar />
+    </div>
+  );
+}
+
+// -----------------------------
+// Tailwind helper —— add to global CSS
+// -----------------------------
+// .animate-spin-slow { animation: spin 20s linear infinite; }
+// @keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
