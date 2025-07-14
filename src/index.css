@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* custom scroll bar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #58A6FF;
+  border-radius: 4px;
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+}
